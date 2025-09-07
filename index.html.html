@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghalati - Luxury Perfumes</title>
+    <style>
+        :root {
+            --primary: #2c1810;
+            --secondary: #f8f1e9;
+            --accent: #b78d65;
+            --text: #333;
+            --light-text: #777;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: rgba(44, 24, 16, 0.9);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+        
+        .cart-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-btn:hover {
+            background-color: #9a7552;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: linear-gradient(rgba(44, 24, 16, 0.5), rgba(44, 24, 16, 0.5)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f9b21148-1b5a-4798-a724-0a1c164e758e.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: var(--secondary);
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .hero-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-btn:hover {
+            background-color: #9a7552;
+        }
+        
+        /* Featured Products */
+        .products {
+            padding: 50px 0 50px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            /* width: 100%; */
+            max-height: 300px;
+            object-fit: cover;
+            overflow: hidden;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .product-info p {
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+        
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .add-to-cart {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #9a7552;
+        }
+        
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background-color: var(--primary);
+            color: var(--secondary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 100px 0;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial {
+            display: none;
+            padding: 30px;
+        }
+        
+        .testimonial.active {
+            display: block;
+        }
+        
+        .testimonial-text {
+            font-size: 20px;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .testimonial-author {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-role {
+            color: var(--light-text);
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ccc;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dot.active {
+            background-color: var(--accent);
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            background-color: var(--secondary);
+            text-align: center;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .newsletter p {
+            color: var(--light-text);
+            margin-bottom: 30px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 30px 0 0 30px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .newsletter-form button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #9a7552;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--secondary);
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            color: var(--secondary);
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--light-text);
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: var(--primary);
+                flex-direction: column;
+                align-items: center;
+                padding-top: 40px;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 30px;
+                padding: 15px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Ghalati</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#products">Shop</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#testimonials">Reviews</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover Your Signature Scent</h1>
+                <p>Experience luxury perfumes crafted with the finest ingredients to reflect your unique personality and style.</p>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Signature Collection</h2>
+                <p>Each fragrance is a carefully crafted masterpiece designed to evoke emotions and memories.</p>
+            </div>
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8371d837-9ea3-46f7-bc45-9e51b3db1bd5.png" alt="Luxury amber perfume bottle with gold details on marble surface" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Amber Mystique</h3>
+                        <p>A warm, sensual blend of amber, vanilla, and exotic spices.</p>
+                        <div class="product-price">
+                            <span class="price">$120</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e88ff90d-7c55-4528-97be-3b6964a96cf4.png" alt="Elegant floral perfume bottle with silver cap and rose gold accents" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Rose Éternelle</h3>
+                        <p>Fresh rose petals blended with woody undertones for timeless elegance.</p>
+                        <div class="product-price">
+                            <span class="price">$95</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/882721c7-9692-40b9-9df8-d1d77db76fb3.png" alt="Modern citrus perfume bottle with clean lines and frosted glass" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Citrus Zest</h3>
+                        <p>Vibrant citrus notes with a hint of ginger and white musk.</p>
+                        <div class="product-price">
+                            <span class="price">$85</span>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/502f32a0-2d46-4d5f-bc6c-9780cbe91427.png" alt="Dark sophisticated perfume bottle with black lacquer finish and gold embroidery" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Midnight Oud</h3>
+                        <p>Rich oud wood combined with smoky leather and precious resins.</p>
+                        <div class="product-price">
+                            <span class="price">$150</span>
+                            
+                        </div>
+                    </div>
+                </div>
+               <!-- Product 5 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="C:\Users\noel acenita\Downloads\ghalati-majestic-wood-0daa7ccf-primary.webp" alt="Dark sophisticated perfume bottle with black lacquer finish and gold embroidery" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Midnight Wood</h3>
+                        <p>Rich oud wood combined with smoky leather and precious resins.</p>
+                        <div class="product-price">
+                            <span class="price">$350</span>
+                            
+                        </div>
+                    </div>
+                </div>
+           <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://fimgs.net/mdimg/perfume/375x500.89823.jpg" alt="Dark sophisticated perfume bottle with black lacquer finish and gold embroidery" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Eau de Vintage</h3>
+                        <p>Chypre Floral fragrance for women and men.</p>
+                        <div class="product-price">
+                            <span class="price">$250</span>
+                            
+                        </div>
+                    </div>
+                </div>
+
+         <!-- Product 7 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://media.parfoom.com/products/ghalati-brave-2c51fce0-primary.webp" alt="Dark sophisticated perfume bottle with black lacquer finish and gold embroidery" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Brave</h3>
+                        <p>"Brave" perfume embodies an amazing blend of fresh and spicy notes.</p>
+                        <div class="product-price">
+                            <span class="price">$850</span>
+                            
+                        </div>
+                    </div>
+                </div>
+
+        <!-- Product 8 -->
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://media.parfoom.com/products/ghalati-mountain-leather-831e457a-primary.webp" alt="Dark sophisticated perfume bottle with black lacquer finish and gold embroidery" />
+                    </div>
+                    <div class="product-info">
+                        <h3>Mountain-Leather</h3>
+                        <p>a fragrance characterized by its top notes of aromatic and spicy elements.</p>
+                        <div class="product-price">
+                            <span class="price">$50</span>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+         
+
+
+
+       
+
+
+
+
+
+    
+
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8b667e50-d1b0-4b34-8fca-e75f7774617f.png" alt="Perfume maker carefully blending ingredients in a sunlit laboratory with glass bottles" />
+                </div>
+                <div class="about-text">
+                    <h2>Our Craftsmanship</h2>
+                    <p>At Ghalati, we believe in the art of fine fragrance. Each perfume is meticulously crafted by our master perfumers who blend tradition with innovation.</p>
+                    <p>We source only the highest quality ingredients from around the world, ensuring each bottle tells a story of luxury and sophistication.</p>
+                    <p>Our commitment to sustainability means we use ethically sourced materials and eco-friendly packaging without compromising on quality.</p>
+                    <p>crafted with a blend of luxury,heritage, and expertise, seeking to create unique and captivating fragrances.</p>
+                    <p>The Brand, with deep-rooted Saudi Arabian origins, collaborates with international experts to develop its scents.</p>
+                    <p>Ghalati perfumes are known for their high-quality ingredients, including rarewoods,precious florals and rich orientals, often with a French influence.</p>
+                    <p>Ghalati is an enchanting perfume brand that captures the essence of timeless elegance and modern allure. Each fragrance is a unique blend of exquisite ingredients, crafted to evoke emotions and memories. Discover the art of scent with Ghalati—where every spray tells a story.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Customers Say</h2>
+                <p>Don't just take our word for it - hear from those who've experienced Ghalati.</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial active">
+                    <p class="testimonial-text">"Amber Mystique is absolutely captivating. I've received so many compliments since I started wearing it. The scent lasts all day!"</p>
+                    <p class="testimonial-author">Sarah Johnson</p>
+                    <p class="testimonial-role">Fashion Editor</p>
+                </div>
+                <div class="testimonial active">
+                    <p class="testimonial-text">"The quality of Ghalati perfumes is unmatched. Each fragrance tells a story and evolves beautifully throughout the day."</p>
+                    <p class="testimonial-author">Michael Chen</p>
+                    <p class="testimonial-role">Lifestyle Blogger</p>
+                </div>
+                <div class="testimonial active">
+                    <p class="testimonial-text">"Rose Éternelle has become my signature scent. It's the perfect balance of floral and woody notes - sophisticated yet playful."</p>
+                    <p class="testimonial-author">Emily Rodriguez</p>
+                    <p class="testimonial-role">Marketing Director</p>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="contact">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Connected</h2>
+                <p>Subscribe to our newsletter for exclusive offers, new releases, and fragrance tips.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h3>Ghalati</h3>
+                    <p>Luxury perfumes crafted with passion and precision to elevate your everyday.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ghalati.perfumes?igsh=azg2aGd0cjRqeWVz "><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/Ghalati.perfum"><i class="fab fa-facebook-f"></i></a>
+
+                        <div class="textfoot"><p>&copy; 2025 Perfume World. All rights reserverd. <br>
+                            This website is for Project only.</p></div>
+                            </footer>
+                        </div>
+                    
